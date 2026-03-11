@@ -9,6 +9,7 @@ public class Program {
     public static GL? gl = null;
 
     static void Main(string[] args) { 
+        // struct that holds basic window configuration settings that we pass into Window.Create
         WindowOptions options = WindowOptions.Default with {
             Size = new Vector2D<int>(800, 600),
             Title = "Graphics Project"
