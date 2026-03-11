@@ -43,9 +43,9 @@ public class WindowHandler {
         public static void OnLoad() {
             Set_gl(_currentWindow.CreateOpenGL()); 
             IInputContext input = _currentWindow!.CreateInput();
-            static void KeyDown(IKeyboard keyboard, Key key, int keyCode) { Console.WriteLine("Key Pressed!"); };
+            static void KeyDown(IKeyboard keyboard, Key key, int keyCode) { Console.WriteLine($"Key Pressed! {key}"); }; // function to be called when the key is pressed
             for(int key = 0; key < input.Keyboards.Count; key++)
-                input.Keyboards[key].KeyDown += KeyDown; 
+                input.Keyboards[key].KeyDown += KeyDown; // KeyDown is an event on every keyboard key, we set it to KeyDown for every key and then that function gets called
         }
 
         public static void OnUpdate(double deltaTime) {
