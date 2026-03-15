@@ -82,8 +82,7 @@ public class WindowHandler {
                 1 = R1,
                 2 = R2,
                 3 = R3
-            */ 
-            
+            */  
             uint[] indices = {
                 0, 1, 3, // top right triangle
                 1, 2, 3 // bottom left triangle
@@ -99,6 +98,20 @@ public class WindowHandler {
             fixed(uint* buf = indices) {
                 _gl.BufferData(BufferTargetARB.ElementArrayBuffer, (nuint)(indices.Length * sizeof(uint)), buf, BufferUsageARB.StaticDraw);
             }
+
+            /*
+                - we set the version (core is the new one, compatibility is for legacy)
+                - we set the "location", the location is just an id to assign to the vertex so the shader can find it in the buffer later
+                - we set gl_position to vec4, but why vec4? because gl_position requires it: x, y, z, w, w is then used as a distance factor, x, y, and z are divided by w
+            */
+            const string vertexCode = 
+                @"#version 330 core
+
+                layout (location = 0) in vec3 aPosition;
+
+                void main() {
+                    gl_position = vec4(aPosition, 1.0);
+                }";
                 
             }
 
